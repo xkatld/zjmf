@@ -3,4 +3,5 @@
 - 移除 ionCube 依赖，支持无加密环境运行
 - 固定版本号为 1.0.0
 
-<img width="1920" height="911" alt="image" src="https://github.com/user-attachments/assets/229604af-85b6-4c11-8cea-a4be679982f9" />
+<img width="1344" height="912" alt="image" src="https://github.com/user-attachments/assets/2ec52994-522a-4a27-860c-271610180140" />
+
