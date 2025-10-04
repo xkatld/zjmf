@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>[title] - {$setting.company_name}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="[description]" />
+  <meta name="keywords" content="[keywords]" />
+  <link href="https://cdn.tailwindcss.com" rel="stylesheet">
+  <script src="{$setting.web_view}/assets/js/jquery.min.js"></script>
+  <script src="{$setting.web_view}/assets/js/scripts.min.js"></script>
+  <script type="text/javascript">
+    $(function(){
+      // 桌面端下拉菜单
+      $(".group").hover(function (){
+            $(this).find('.group-hover\\:opacity-100').addClass('opacity-100 visible').removeClass('opacity-0 invisible');
+        },function (){
+            $(this).find('.group-hover\\:opacity-100').addClass('opacity-0 invisible').removeClass('opacity-100 visible');
+        });
+      
+      // 移动端主菜单切换
+      $('[data-toggle="collapse"]').click(function(){
+        var target = $(this).attr('data-target');
+        $(target).toggleClass('hidden');
+      });
+      
+      // 移动端子菜单切换
+      $('.mobile-menu-toggle').click(function(){
+        var target = $(this).attr('data-target');
+        $(target).toggleClass('hidden');
+      });
+    })
+  </script>
+
+</head>
+
+<body class="bg-gray-50">
+   <div class="bg-white shadow-lg border-b">
+  <div class="container mx-auto px-4">
+    <nav class="flex items-center justify-between py-4">
+      <div class="flex items-center">
+        <button type="button" class="md:hidden inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+          <span class="sr-only">Open main menu</span>
+          <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
+        <a class="flex items-center" href="/">
+          <img src="{$setting.web_logo}" alt="Logo" class="h-10 w-auto">
+        </a>
+        <div class="md:hidden ml-auto flex space-x-4">
+          <a href="{$setting.web_url}/login" class="text-blue-600 hover:text-blue-800 font-medium">{$Lang.login}</a>
+          <a href="{$setting.web_url}/register" class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 font-medium">{$Lang.register}</a>
+        </div>
+      </div>
+      <div class="hidden md:flex items-center space-x-8" id="bs-example-navbar-collapse-1">
+        <ul class="flex items-center space-x-6">
+
+            {foreach $www_top as $key =>$val}
+              <li class="relative group">
+              <!-- ------------一级菜单 ---start------------------- -->
+              {if (!isset($val.son))}
+              <a href="{$val.url}" class="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium">{$val.name}</a>
+              {/if}
+
+              {if (isset($val.son))}
+              <a href="#" class="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium flex items-center">{$val.name}
+                <svg class="ml-1 h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                </svg>
+              </a>
+              {/if}
+              <!-- ------------一级菜单 ---end------------------- -->
+
+              <!-- -----------二级菜单 ---start------------------- -->
+              {if (isset($val.son))}
+                  {if (in_array($val.nav_type,[1,2]))}
+                      <div class="absolute left-0 mt-2 w-96 bg-white rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                        <div class="grid grid-cols-{:count($val.son)} gap-4 p-6">
+                        {foreach $val.son as $k =>$v}
+                          <div>
+                            <h3 class="text-gray-900 font-semibold mb-2">{$v.name}</h3>
+                            <!-- 一级分组-商品分组 | 商品分组-商品  三级菜单 -->
+                            {if (isset($v.son))}
+                            <ul class="space-y-1">
+                            {foreach $v.son as $vs_k => $vs_v}
+                              <li>
+                                <a href="{$vs_v.url}" class="text-gray-600 hover:text-blue-600 text-sm">{$vs_v.name}</a>
+                              </li>
+                            {/foreach}
+                            </ul>
+                            {/if}
+                          </div>
+                        {/foreach}
+                        </div>
+                      </div>
+                  {/if}
+
+                  {if (!in_array($val.nav_type,[1,2]))}
+                    <div class="absolute left-0 mt-2 w-80 bg-white rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                      <div class="p-4">
+                      {foreach $val.son as $k =>$v}
+                        <div class="mb-4">
+                          {if (!isset($v.son))}
+                            <a href="{$v.url}" {if (isset($v.tag))} {$v.tag} {/if} class="text-gray-700 hover:text-blue-600 font-medium">{$v.name}</a>
+                          {/if}
+
+                          {if (isset($v.son))}
+                            <div class="text-gray-900 font-semibold mb-2" {if (isset($v.tag))} {$v.tag} {/if}>{$v.name}</div>
+                          {/if}
+
+                          {if (isset($v.son))}
+                            <ul class="ml-4 space-y-1">
+                              {foreach $v.son as $vs_k => $vs_v}
+                                  <li>
+                                      <a href="{$vs_v.url}" {if (isset($vs_v.tag))} {$vs_v.tag} {/if} class="text-gray-600 hover:text-blue-600 text-sm">{$vs_v.name}</a>
+                                  </li>
+                              {/foreach}
+                            </ul>
+                          {/if}
+                        </div>
+                      {/foreach}
+                      </div>
+                    </div>
+                  {/if}
+
+              {/if}
+              <!-- ------------二级菜单 ---end------------------- -->
+            </li>
+            {/foreach}
+            
+            
+          </ul>
+          <div class="flex items-center space-x-4">
+           
+           {if $userInfo}
+           <a href="{$setting.web_url}/clients.html#/user-center" class="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium">控制台</a>
+           <a href="{$setting.web_url}/logout" class="bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700 text-sm font-medium">退出账户</a>
+           {else}
+           <a href="{$setting.web_url}/login" class="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium">{$Lang.login}</a>
+           <a href="{$setting.web_url}/register" class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 text-sm font-medium">{$Lang.register}</a>
+           {/if}
+          </div>
+        </div>
+      </div>
+    </nav>
+    
+    <!-- 移动端菜单 -->
+    <div class="md:hidden hidden" id="bs-example-navbar-collapse-1">
+      <div class="px-2 pt-2 pb-3 space-y-1">
+        {foreach $www_top as $key =>$val}
+          <div>
+            {if (!isset($val.son))}
+            <a href="{$val.url}" class="text-gray-700 hover:text-blue-600 block px-3 py-2 text-base font-medium">{$val.name}</a>
+            {/if}
+            
+            {if (isset($val.son))}
+            <div class="text-gray-700 px-3 py-2 text-base font-medium cursor-pointer mobile-menu-toggle" data-target="#mobile-submenu-{$key}">
+              {$val.name}
+              <svg class="inline ml-1 h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </div>
+            <div id="mobile-submenu-{$key}" class="hidden ml-4 space-y-1">
+              {foreach $val.son as $k =>$v}
+                {if (!isset($v.son))}
+                <a href="{$v.url}" class="text-gray-600 hover:text-blue-600 block px-3 py-2 text-sm">{$v.name}</a>
+                {/if}
+                
+                {if (isset($v.son))}
+                <div class="text-gray-600 px-3 py-2 text-sm font-medium">{$v.name}</div>
+                {foreach $v.son as $vs_k => $vs_v}
+                <a href="{$vs_v.url}" class="text-gray-500 hover:text-blue-600 block px-6 py-1 text-sm">{$vs_v.name}</a>
+                {/foreach}
+                {/if}
+              {/foreach}
+            </div>
+            {/if}
+          </div>
+        {/foreach}
+        
+        <div class="border-t border-gray-200 pt-4 pb-3">
+          {if $userInfo}
+          <a href="{$setting.web_url}/clients.html#/user-center" class="text-gray-700 hover:text-blue-600 block px-3 py-2 text-base font-medium">控制台</a>
+          <a href="{$setting.web_url}/logout" class="text-red-600 hover:text-red-800 block px-3 py-2 text-base font-medium">退出账户</a>
+          {else}
+          <a href="{$setting.web_url}/login" class="text-gray-700 hover:text-blue-600 block px-3 py-2 text-base font-medium">{$Lang.login}</a>
+          <a href="{$setting.web_url}/register" class="bg-blue-600 text-white block mx-3 px-3 py-2 rounded-md text-base font-medium text-center">{$Lang.register}</a>
+          {/if}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
