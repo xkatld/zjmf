@@ -1668,39 +1668,64 @@ class CartController extends \cmf\controller\HomeBaseController
 							if ($option["option_type"] == 12) {
 								$option_filter["icon_flag"] = trim($option_filter_suboption_name[0]);
 								$option_filter["sub_name"] = $option_filter_suboption_name[1];
-							} elseif ($option["option_type"] == 5) {
-								$iconos = strtolower($option_filter_suboption_name[0]);
-								switch ($iconos) {
-									case "windows":
-										$icon_os = 1;
-										break;
-									case "centos":
-										$icon_os = 2;
-										break;
-									case "ubuntu":
-										$icon_os = 3;
-										break;
-									case "debian":
-										$icon_os = 4;
-										break;
-									case "esxi":
-										$icon_os = 5;
-										break;
-									case "xenserver":
-										$icon_os = 6;
-										break;
-									case "freebsd":
-										$icon_os = 7;
-										break;
-									case "fedora":
-										$icon_os = 8;
-										break;
-									default:
-										$icon_os = 9;
-								}
-								$option_filter["icon_os"] = $icon_os;
-								$option_filter["sub_name"] = $option_filter_suboption_name[1];
+						} elseif ($option["option_type"] == 5) {
+							$iconos = strtolower($option_filter_suboption_name[0]);
+							switch ($iconos) {
+								case "windows":
+									$icon_os = 1;
+									break;
+								case "centos":
+									$icon_os = 2;
+									break;
+								case "ubuntu":
+									$icon_os = 3;
+									break;
+								case "debian":
+									$icon_os = 4;
+									break;
+								case "esxi":
+									$icon_os = 5;
+									break;
+								case "xenserver":
+									$icon_os = 6;
+									break;
+								case "freebsd":
+									$icon_os = 7;
+									break;
+								case "fedora":
+									$icon_os = 8;
+									break;
+								case "almalinux":
+								case "alma":
+									$icon_os = 9;
+									break;
+								case "rockylinux":
+								case "rocky":
+									$icon_os = 10;
+									break;
+								case "oracle":
+								case "oraclelinux":
+								case "oracle linux":
+									$icon_os = 11;
+									break;
+								case "opensuse":
+								case "suse":
+									$icon_os = 12;
+									break;
+								case "alpine":
+									$icon_os = 13;
+									break;
+								case "amazonlinux":
+								case "amazon":
+								case "amazon linux":
+									$icon_os = 14;
+									break;
+								default:
+									$icon_os = 99;
 							}
+							$option_filter["icon_os"] = $icon_os;
+							$option_filter["sub_name"] = $option_filter_suboption_name[1];
+						}
 						}
 						if ($flag && $flag["type"] == 1) {
 							if ($is_ajmf_api) {

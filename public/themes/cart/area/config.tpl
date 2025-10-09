@@ -297,25 +297,37 @@
 												{assign name="os_selected" value="$sub_key" /}  
 											{/if} 
 										{/foreach}
-										{if strtolower($sub_key)=="windows"}
-										{assign name="os_svg" value="1" /}
-										{elseif strtolower($sub_key)=="centos"/}
-										{assign name="os_svg" value="2" /}
-										{elseif strtolower($sub_key)=="ubuntu"/}
-										{assign name="os_svg" value="3" /}
-										{elseif strtolower($sub_key)=="debian"/}
-										{assign name="os_svg" value="4" /}
-										{elseif strtolower($sub_key)=="esxi"/}
-										{assign name="os_svg" value="5" /}
-										{elseif strtolower($sub_key)=="xenserver"/}
-										{assign name="os_svg" value="6" /}
-										{elseif strtolower($sub_key)=="freebsd"/}
-										{assign name="os_svg" value="7" /}
-										{elseif strtolower($sub_key)=="fedora"/}
-										{assign name="os_svg" value="8" /}
-										{else/}
-										{assign name="os_svg" value="9" /}
-										{/if}
+									{if strtolower($sub_key)=="windows"}
+									{assign name="os_svg" value="1" /}
+									{elseif strtolower($sub_key)=="centos"/}
+									{assign name="os_svg" value="2" /}
+									{elseif strtolower($sub_key)=="ubuntu"/}
+									{assign name="os_svg" value="3" /}
+									{elseif strtolower($sub_key)=="debian"/}
+									{assign name="os_svg" value="4" /}
+									{elseif strtolower($sub_key)=="esxi"/}
+									{assign name="os_svg" value="5" /}
+									{elseif strtolower($sub_key)=="xenserver"/}
+									{assign name="os_svg" value="6" /}
+									{elseif strtolower($sub_key)=="freebsd"/}
+									{assign name="os_svg" value="7" /}
+									{elseif strtolower($sub_key)=="fedora"/}
+									{assign name="os_svg" value="8" /}
+									{elseif strtolower($sub_key)=="almalinux" || strtolower($sub_key)=="alma"/}
+									{assign name="os_svg" value="9" /}
+									{elseif strtolower($sub_key)=="rockylinux" || strtolower($sub_key)=="rocky"/}
+									{assign name="os_svg" value="10" /}
+									{elseif strtolower($sub_key)=="oracle" || strtolower($sub_key)=="oraclelinux"/}
+									{assign name="os_svg" value="11" /}
+									{elseif strtolower($sub_key)=="opensuse" || strtolower($sub_key)=="suse"/}
+									{assign name="os_svg" value="12" /}
+									{elseif strtolower($sub_key)=="alpine"/}
+									{assign name="os_svg" value="13" /}
+									{elseif strtolower($sub_key)=="amazonlinux" || strtolower($sub_key)=="amazon"/}
+									{assign name="os_svg" value="14" /}
+									{else/}
+									{assign name="os_svg" value="99" /}
+									{/if}
 										<option  data-content="<img class='mr-1' src='/upload/common/system/{$os_svg}.svg' height='20'/>{$sub_key}" {if $os_selected}selected="" {elseif $getUrlConfig.config_options[$option.id]==$child_val.id && !$CartConfig.config_options} selected="" {/if} data-os='{:json_encode($sub_val.child)}' value="{$sub_key}">{$sub_key}</option>
 									{/foreach}
 								</select>

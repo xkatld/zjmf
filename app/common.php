@@ -6538,8 +6538,33 @@ function getOsSvg($os)
 		case "fedora":
 			$type = 8;
 			break;
+		case "almalinux":
+		case "alma":
+			$type = 9;
+			break;
+		case "rockylinux":
+		case "rocky":
+			$type = 10;
+			break;
+		case "oracle":
+		case "oraclelinux":
+		case "oracle linux":
+			$type = 11;
+			break;
+		case "opensuse":
+		case "suse":
+			$type = 12;
+			break;
+		case "alpine":
+			$type = 13;
+			break;
+		case "amazonlinux":
+		case "amazon":
+		case "amazon linux":
+			$type = 14;
+			break;
 		default:
-			$type = "";
+			$type = 99;
 			break;
 	}
 	return $type;
